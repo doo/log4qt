@@ -76,7 +76,7 @@ namespace Log4Qt
          *
          * \sa setMaxFileSize(), maximumFileSize()
          */
-        Q_PROPERTY(QString maxFileSize WRITE setMaxFileSize)
+        Q_PROPERTY(QString maxFileSize WRITE setMaxFileSize READ maximumFileSize)
         
 	public:
 	    RollingFileAppender(QObject *pParent = 0);
