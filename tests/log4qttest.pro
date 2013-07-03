@@ -23,7 +23,7 @@
 # *******************************************************************************
 
 TEMPLATE = app
-CONFIG += qtestlib
+QT += testlib
 DEFINES -= \
     QT_NO_CAST_FROM_ASCII \
 	QT_NO_CAST_TO_ASCII
