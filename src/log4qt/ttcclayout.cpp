@@ -68,9 +68,9 @@ namespace Log4Qt
 	    mDateFormat(),
 	    mThreadPrinting(true),
 	    mpPatternFormatter(0)
-	{
-	    setDateFormat(RELATIVE);
-	}
+    {
+        setDateFormat(RELATIVE_DATE);
+    }
 	
 	
 	TTCCLayout::TTCCLayout(const QString &rDateFormat, 
@@ -105,29 +105,29 @@ namespace Log4Qt
 	
 	
 	void TTCCLayout::setDateFormat(DateFormat dateFormat)
-	{
-	    switch (dateFormat)
-	    {
-	        case NONE:
-	        	setDateFormat(QLatin1String("NONE"));
-	            break;
-	        case ISO8601:
-	        	setDateFormat(QLatin1String("ISO8601"));
-	            break;
-	        case ABSOLUTE:
-	        	setDateFormat(QLatin1String("ABSOLUTE"));
-	            break;
-	        case DATE:
-	        	setDateFormat(QLatin1String("DATE"));
-	            break;
-	        case RELATIVE:
-	        	setDateFormat(QLatin1String("RELATIVE"));
-	            break;
-	        default:
-	            Q_ASSERT_X(false, "TTCCLayout::setDateFormat", "Unkown DateFormat");
-	            setDateFormat(QString());
-	    }
-	}
+    {
+        switch (dateFormat)
+        {
+        case NONE:
+            setDateFormat(QLatin1String("NONE"));
+            break;
+        case ISO8601:
+            setDateFormat(QLatin1String("ISO8601"));
+            break;
+        case ABSOLUTE_DATE:
+            setDateFormat(QLatin1String("ABSOLUTE"));
+            break;
+        case DATE:
+            setDateFormat(QLatin1String("DATE"));
+            break;
+        case RELATIVE_DATE:
+            setDateFormat(QLatin1String("RELATIVE"));
+            break;
+        default:
+            Q_ASSERT_X(false, "TTCCLayout::setDateFormat", "Unkown DateFormat");
+            setDateFormat(QString());
+        }
+    }
 	
 	
 	QString TTCCLayout::format(const LoggingEvent &rEvent)
