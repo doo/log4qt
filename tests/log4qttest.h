@@ -130,8 +130,10 @@ private slots:
     void PropertyConfigurator_debug();
     void PropertyConfigurator_threshold();
     void PropertyConfigurator_handleQtMessages();
-    void PropertyConfigurator_example();
+
     void RollingFileAppender();
+
+    void PropertyConfigurator_example();
 
 private:
 	QString dailyRollingFileAppenderSuffix(const QDateTime &rDateTime);
