@@ -75,6 +75,9 @@ namespace Log4Qt
 	    return true;
 	}
 	
+  #if QT_VERSION >= 0x050000
+	#define QT_WA(unicode, ansi) unicode
+	#endif
 	
 	void DebugAppender::append(const LoggingEvent &rEvent)
 	{
