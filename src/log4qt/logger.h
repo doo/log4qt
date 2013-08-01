@@ -219,6 +219,12 @@ namespace Log4Qt
 	class LoggingEvent;
 	class LoggerRepository;
 
+#ifdef LOG4QT_LIB
+#define LOG4QT_EXPORT Q_DECL_EXPORT
+#else 
+#define LOG4QT_EXPORT Q_DECL_IMPORT
+#endif
+
 	/*!
 	 * \brief The class Logger provides logging services.
 	 *
@@ -233,7 +239,7 @@ namespace Log4Qt
 	 *
 	 * \note All the functions declared in this class are thread-safe.
 	 */
-	class Logger : public QObject
+	class LOG4QT_EXPORT Logger : public QObject
 	{
 	    Q_OBJECT
 
