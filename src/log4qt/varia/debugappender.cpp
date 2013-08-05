@@ -36,7 +36,7 @@
 #include "log4qt/layout.h"
 #include "log4qt/loggingevent.h"
 
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 #include <Windows.h>
 #endif
 
@@ -85,7 +85,7 @@ namespace Log4Qt
 	    Q_ASSERT_X(layout(), "DebugAppender::append()", "Layout must not be null");
 	    
 	    QString message(layout()->format(rEvent));    
-#if defined(Q_WS_WIN)
+#if defined(Q_OS_WIN)
 	    QT_WA({
 	        OutputDebugStringW(reinterpret_cast<const WCHAR*>(message.utf16()));
 	    }, {
