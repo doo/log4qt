@@ -64,7 +64,7 @@ namespace Log4Qt
 	 *
 	 * \sa LOG4QT_DECLARE_QCLASS_LOGGER
 	 */
-	class Q_DECL_EXPORT ClassLogger
+	class ClassLogger
 	{
 	public:
 	    /*!
