@@ -119,7 +119,7 @@ namespace Log4Qt
 	 * from QObject. The macro \ref Log4Qt::LOG4QT_QCLASS_ERROR "LOG4QT_QCLASS_ERROR"
 	 * is used with classes derived from QObject.
 	 */
-	class Q_DECL_EXPORT LogError
+	class LogError
 	{
 	public:
 		
