@@ -331,14 +331,6 @@ namespace Log4Qt
 	        return;
 	
 	    closeFile();
-	
-	    QString target_file_name = file() + roll_over_suffix;
-	    QFile f(target_file_name);
-	    if (f.exists() && !removeFile(f))
-	        return;
-	    f.setFileName(file());
-	    if (!renameFile(f, target_file_name))
-            return;
 	    openFile();
 	}
 	

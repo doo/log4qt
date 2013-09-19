@@ -234,18 +234,18 @@ namespace Log4Qt
 	{
 	    Q_ASSERT_X(mpFile == 0 && mpTextStream == 0, "FileAppender::openFile()", "Opening file without closing previous file");
 	    
-	    QFileInfo file_info(mFileName);
+	    QFileInfo file_info(file());
 	    QDir parent_dir = file_info.dir();
 	    if (!parent_dir.exists())
 	    {
-	        logger()->trace("Creating missing parent directory for file %1", mFileName);
+	        logger()->trace("Creating missing parent directory for file %1", file());
 	        QString name = parent_dir.dirName();
 	        parent_dir.cdUp();
 	        parent_dir.mkdir(name);
 	    }
 
 	    
-	    mpFile = new QFile(mFileName);
+	    mpFile = new QFile(file());
 	    QFile::OpenMode mode = QIODevice::WriteOnly | QIODevice::Text;
 	    if (mAppendFile)
 	        mode |= QIODevice::Append;
@@ -257,7 +257,7 @@ namespace Log4Qt
 	    {
 	        LogError e = LOG4QT_QCLASS_ERROR(QT_TR_NOOP("Unable to open file '%1' for appender '%2'"),
                                              APPENDER_OPENING_FILE_ERROR);
-	        e << mFileName << name();
+	        e << file() << name();
 	        e.addCausingError(LogError(mpFile->errorString(), mpFile->error()));
 	        logger()->error(e);
 	        return;

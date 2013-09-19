@@ -33,7 +33,7 @@
 #include "log4qt/fileappender.h"
 
 #include <QtCore/QDateTime>
-
+#include <QtCore/QFileInfo>
 
 /******************************************************************************
  * Declarations
@@ -109,6 +109,8 @@ namespace Log4Qt
 	    void setDatePattern(const QString &rDatePattern);
 	
 	    virtual void activateOptions();
+
+      QString file() const override;
 	    
 	protected:
 	    virtual void append(const LoggingEvent &rEvent);
@@ -186,6 +188,17 @@ namespace Log4Qt
 	{   QMutexLocker locker(&mObjectGuard);
 	    mDatePattern = rDatePattern;    }
 	
+  inline QString DailyRollingFileAppender::file() const
+  {
+    QString effectiveName(FileAppender::file());
+    if (!mDatePattern.isEmpty()) {
+      QFileInfo filenameInfo(effectiveName);
+      QString dateSuffix = QDateTime::currentDateTime().toString(mActiveDatePattern);
+      effectiveName = QString("%1/%2%3.%4").arg(filenameInfo.path(), filenameInfo.completeBaseName(), dateSuffix, filenameInfo.suffix());
+    }
+    return effectiveName;
+  }
+
 	
 } // namespace Log4Qt
 

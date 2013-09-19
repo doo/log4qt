@@ -102,7 +102,7 @@ namespace Log4Qt
           
   public:
       bool appendFile() const;
-      QString file() const;
+      virtual QString file() const;
       bool bufferedIo() const;
       // JAVA: int bufferSize() const;
       void setAppendFile(bool append);
