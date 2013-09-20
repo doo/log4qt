@@ -38,6 +38,8 @@
 #include <QtCore/QTextStream>
 #include <QtCore/QTextCodec>
 #include <QtCore/QRegularExpression>
+#include <QtCore/QCoreApplication>
+#include <QtCore/QMetaProperty>
 #include "log4qt/layout.h"
 #include "log4qt/loggingevent.h"
 
@@ -135,11 +137,19 @@ namespace Log4Qt
           logger()->error(e);
           return;
       }
-      QRegularExpression envVarFinder("%([A-Z]+)%");
+      QRegularExpression envVarFinder("%(\\w+)%");
       QRegularExpressionMatch envVarMatch;
       while ((envVarMatch = envVarFinder.match(mFileName)).hasMatch()) {
         auto varname = envVarMatch.captured(1);
-        auto varvalue = qgetenv(qPrintable(varname));
+        auto app = QCoreApplication::instance();
+        auto propIndex = app->metaObject()->indexOfProperty(qPrintable(varname));
+
+        QString varvalue;
+        if (propIndex > -1) {
+          varvalue = app->metaObject()->property(propIndex).read(app).toString();
+        } else {
+          varvalue = qgetenv(qPrintable(varname));
+        }
         mFileName.replace(envVarMatch.capturedStart(0), envVarMatch.capturedLength(0), varvalue);
       }
 	    closeFile();
