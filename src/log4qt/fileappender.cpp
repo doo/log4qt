@@ -37,6 +37,7 @@
 #include <QtCore/QDebug>
 #include <QtCore/QTextStream>
 #include <QtCore/QTextCodec>
+#include <QtCore/QRegularExpression>
 #include "log4qt/layout.h"
 #include "log4qt/loggingevent.h"
 
@@ -126,14 +127,21 @@ namespace Log4Qt
 	{
 	    QMutexLocker locker(&mObjectGuard);
 	
-        if (mFileName.isEmpty())
-        {
-            LogError e = LOG4QT_QCLASS_ERROR(QT_TR_NOOP("Activation of Appender '%1' that requires file and has no file set"),
-                                             APPENDER_ACTIVATE_MISSING_FILE_ERROR);
-            e << name();
-            logger()->error(e);
-            return;
-        }
+      if (mFileName.isEmpty())
+      {
+          LogError e = LOG4QT_QCLASS_ERROR(QT_TR_NOOP("Activation of Appender '%1' that requires file and has no file set"),
+                                           APPENDER_ACTIVATE_MISSING_FILE_ERROR);
+          e << name();
+          logger()->error(e);
+          return;
+      }
+      QRegularExpression envVarFinder("%([A-Z]+)%");
+      QRegularExpressionMatch envVarMatch;
+      while ((envVarMatch = envVarFinder.match(mFileName)).hasMatch()) {
+        auto varname = envVarMatch.captured(1);
+        auto varvalue = qgetenv(qPrintable(varname));
+        mFileName.replace(envVarMatch.capturedStart(0), envVarMatch.capturedLength(0), varvalue);
+      }
 	    closeFile();
 	    openFile();
 	    WriterAppender::activateOptions();

@@ -32,8 +32,6 @@
 
 #include "log4qt/writerappender.h"
 
-#include <QStandardPaths>
-
 /******************************************************************************
  * Declarations
  ******************************************************************************/
@@ -222,8 +220,7 @@ namespace Log4Qt
   
   inline void FileAppender::setFile(const QString &rFileName)
   {   QMutexLocker locker(&mObjectGuard);
-      QString path = QStandardPaths::writableLocation(QStandardPaths::DataLocation);
-      mFileName = QString("%1/%2").arg(path, rFileName);   }
+      mFileName = rFileName;  }
   
   
 } // namespace Log4Qt
