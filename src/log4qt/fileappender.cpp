@@ -256,10 +256,8 @@ namespace Log4Qt
 	    QDir parent_dir = file_info.dir();
 	    if (!parent_dir.exists())
 	    {
-	        logger()->trace("Creating missing parent directory for file %1", file());
-	        QString name = parent_dir.dirName();
-	        parent_dir.cdUp();
-	        parent_dir.mkdir(name);
+            logger()->trace("Creating missing parent directory for file %1", file());
+            parent_dir.mkpath(QStringLiteral("."));
 	    }
 
 	    
