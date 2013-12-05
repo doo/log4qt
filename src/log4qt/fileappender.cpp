@@ -261,7 +261,7 @@ namespace Log4Qt
 	    }
 
 	    
-	    mpFile = new QFile(file());
+	    mpFile = new QFile(file_info.absoluteFilePath());
 	    QFile::OpenMode mode = QIODevice::WriteOnly | QIODevice::Text;
 	    if (mAppendFile)
 	        mode |= QIODevice::Append;
