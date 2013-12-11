@@ -52,7 +52,7 @@ namespace Log4Qt
 	 * \note The ownership and lifetime of objects of this class are managed. 
 	 *       See \ref Ownership "Object ownership" for more details.
 	 */
-	class DebugAppender : public AppenderSkeleton
+	class LOG4QT_EXPORT DebugAppender : public AppenderSkeleton
 	{
 	    Q_OBJECT
 	
