@@ -78,7 +78,10 @@ namespace Log4Qt
        * \sa file(), setFile()
        */
       Q_PROPERTY(QString file READ file WRITE setFile)
-  
+
+  Q_SIGNALS:
+      void fileChanged(const QString& file);
+
   public:
       FileAppender(QObject *pParent = 0);
       FileAppender(Layout *pLayout,
@@ -218,11 +221,13 @@ namespace Log4Qt
   {   // QMutexLocker locker(&mObjectGuard); // Read/Write of int is safe
     mBufferedIo = buffered;   }
   
-  inline void FileAppender::setFile(const QString &rFileName)
-  {   QMutexLocker locker(&mObjectGuard);
-      mFileName = rFileName;  }
-  
-  
+  inline void FileAppender::setFile(const QString &rFileName) {
+    QMutexLocker locker(&mObjectGuard);
+    if (rFileName != mFileName) {
+      mFileName = rFileName;
+      emit fileChanged(mFileName);
+    }
+  }
 } // namespace Log4Qt
 
 
